@@ -4,18 +4,19 @@ import {Home} from "./components/home/home.tsx";
 import {Login} from "./components/login/login.tsx";
 import {Register} from "./components/register/register.tsx";
 import {PageNotFoundPage} from "./components/page-not-found/page-not-found.tsx";
+import {AppBar} from "./components/app-bar/app-bar.tsx";
 
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" >
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="*" element={<PageNotFoundPage />} />
+        <Route path="/" element={<AppBar/>}>
+          <Route index element={<Home/>}/>
         </Route>
+        <Route path="register" element={<Register/>}/>
+        <Route path="login" element={<Login/>}/>
+        <Route path="*" element={<PageNotFoundPage/>}/>
       </Routes>
     </BrowserRouter>
   )
