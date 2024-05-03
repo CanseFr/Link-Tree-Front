@@ -1,7 +1,16 @@
+import {Typography} from "@mui/material";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store.ts";
+
 export const Home = () => {
-  return(
+  const role = useSelector((state: RootState) => state.authentication.role)
+console.log("FROM HOME")
+console.log(role)
+console.log("FROM HOME")
+    return(
     <>
-    Home
+      <Typography variant="body2" color="textSecondary">sssssssss</Typography>
+      {role}
     </>
   )
 }

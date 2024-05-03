@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import {useState} from "react";
 import {genericFetch} from "../../common/request/request.ts";
+import {useDispatch} from "react-redux";
+import {setRoleOnLogin} from "../../features/authentication/auth-slice.ts";
 
 interface LoginObject {
   email: string;
@@ -13,6 +15,8 @@ export const Login = () => {
   const [loginObject, setLoginObject] = useState<LoginObject>({email: '', password: ''});
 
   const nav = useNavigate()
+  const dispatch = useDispatch();
+
 
   const handleLogin = () => {
     genericFetch<LoginObject>("/auth/login", 'POST', loginObject)
@@ -24,6 +28,7 @@ export const Login = () => {
         }
       })
       .then((data) => {
+        dispatch(setRoleOnLogin(data.accessToken))
         data.accessToken && nav("/");
       })
       .catch((error) => {

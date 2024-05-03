@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ParkIcon from '@mui/icons-material/Park';
 import MenuIcon from '@mui/icons-material/Menu';
-import {useNavigate} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -33,6 +33,7 @@ export const AppBar = () => {
   // };
 
   return (
+    <>
     <Container maxWidth="xl" sx={{borderRadius: "8px", backgroundColor: "black"}}>
       <Toolbar disableGutters>
         <ParkIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
@@ -162,5 +163,7 @@ export const AppBar = () => {
         {/*</Box>*/}
       </Toolbar>
     </Container>
-  );
+  <Outlet/>
+</>
+);
 }
