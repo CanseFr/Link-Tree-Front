@@ -5,6 +5,7 @@ import {useState} from "react";
 import {genericFetch} from "../../common/request/request.ts";
 import {useDispatch} from "react-redux";
 import {setRoleOnLogin} from "../../features/authentication/auth-slice.ts";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 interface LoginObject {
   email: string;
@@ -44,6 +45,7 @@ export const Login = () => {
       <TextField id="outlined-basic" onChange={(e) => setLoginObject({...loginObject, password: e.target.value})} label="Password" type="password" variant="outlined" sx={{marginTop: "20px"}}/>
       <Button variant="contained" onClick={handleLogin} sx={{backgroundColor: "black", marginTop: "20px"}}>Login</Button>
       <Button variant="text" size="small" onClick={() => nav("/register")} sx={{marginTop: "20px", color: "black"}}>Register</Button>
+      <Button variant="text" size="small" onClick={() => nav("/")} sx={{marginTop: "20px", color: "black"}}><KeyboardBackspaceIcon/></Button>
     </Grid>
   )
 }

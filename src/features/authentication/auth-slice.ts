@@ -2,10 +2,11 @@ import {createSlice} from '@reduxjs/toolkit'
 import {jwtDecode, JwtPayload} from "jwt-decode";
 
 export interface DecodedToken extends JwtPayload {
-  userId: number|undefined;
-  role: string|undefined;
+  userId: number | undefined;
+  role: string | undefined;
 }
-const initialState:DecodedToken = {
+
+const initialState: DecodedToken = {
   userId: undefined,
   role: undefined,
 }
@@ -20,12 +21,17 @@ const authenticationSlice = createSlice({
         state.userId = decoded.userId;
         state.role = decoded.role;
         localStorage.setItem("token", action.payload)
-      }catch(err) {
+      } catch (err) {
         console.log(err);
       }
     },
+    logout(state) {
+      localStorage.clear()
+      state.role = undefined;
+      state.userId = undefined;
+    }
   },
 })
 
-export const {setRoleOnLogin} = authenticationSlice.actions;
+export const {setRoleOnLogin, logout} = authenticationSlice.actions;
 export default authenticationSlice.reducer;
