@@ -6,6 +6,6 @@ export const login = (loginObject: LoginObject) => genericFetch<LoginObject>("/a
     if (res.ok) {
       return res.json();
     } else {
-      throw new Error("Error request");
+      throw new Error("Error request on Login");
     }
   })

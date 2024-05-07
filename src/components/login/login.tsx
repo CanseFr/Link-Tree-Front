@@ -9,14 +9,14 @@ import {login} from "./request.ts";
 import {LoginObject} from "./type.ts";
 
 export const Login = () => {
-  const [loginObject, setLoginObject] = useState<LoginObject>({email: '', password: ''});
+  const [loginObject, setLoginObject] = useState<LoginObject>();
 
   const nav = useNavigate()
   const dispatch = useDispatch();
 
 
   const handleLogin = () => {
-    login(loginObject)
+    login(loginObject!)
       .then((data) => {
         dispatch(setRoleOnLogin(data.accessToken))
         data.accessToken && nav("/");
