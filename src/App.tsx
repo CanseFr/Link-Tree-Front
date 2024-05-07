@@ -25,7 +25,6 @@ const ProtectedRoute = ({children}: { children: React.ReactNode }) => {
 };
 
 const App = () => {
-  // const navigate = useNavigate()
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -2,15 +2,11 @@ import {Button, Grid, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import {useState} from "react";
-import {genericFetch} from "../../common/request/request.ts";
 import {useDispatch} from "react-redux";
 import {setRoleOnLogin} from "../../features/authentication/auth-slice.ts";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-
-interface LoginObject {
-  email: string;
-  password: string
-}
+import {login} from "./request.ts";
+import {LoginObject} from "./type.ts";
 
 export const Login = () => {
   const [loginObject, setLoginObject] = useState<LoginObject>({email: '', password: ''});
@@ -20,14 +16,7 @@ export const Login = () => {
 
 
   const handleLogin = () => {
-    genericFetch<LoginObject>("/auth/login", 'POST', loginObject)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Error request");
-        }
-      })
+    login(loginObject)
       .then((data) => {
         dispatch(setRoleOnLogin(data.accessToken))
         data.accessToken && nav("/");

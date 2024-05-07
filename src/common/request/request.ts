@@ -1,6 +1,6 @@
-const apiRoute = 'http://localhost:3000'
+import {apiRoute} from "../../components/common/url.ts";
 
-export const genericFetch = <T>(url:string, methods: 'POST'|'GET'|'DELETE'|'PATCH', object: T): Promise<Response> => {
+export const genericFetch = <T>(url: string, methods: 'POST' | 'GET' | 'DELETE' | 'PATCH', object: T): Promise<Response> => {
   return fetch(apiRoute + url, {
     method: methods,
     headers: {
