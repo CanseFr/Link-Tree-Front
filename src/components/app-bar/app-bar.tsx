@@ -22,6 +22,11 @@ export const AppBar = () => {
   const role = useSelector((state: RootState) => state.authentication.role)
   const dispatch = useDispatch();
 
+  const handleRedirect = (url: string) => {
+    setAnchorElUser(null);
+    nav(url)
+  }
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -34,7 +39,7 @@ export const AppBar = () => {
   };
 
   const handleCloseUserMenu = (selectable: string) => {
-    if (selectable === "Logout"){
+    if (selectable === "Logout") {
       dispatch(logout())
     }
     setAnchorElUser(null);
@@ -153,8 +158,13 @@ export const AppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                {role === "ADMIN" &&
+                    <MenuItem onClick={() => handleRedirect("/admin")}>
+                        <Typography color="red" textAlign="center">Admin</Typography>
+                    </MenuItem>
+                }
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
+                  <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
