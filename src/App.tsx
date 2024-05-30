@@ -54,7 +54,7 @@ const App = () => {
 
         {/* URL PUBLIQUE POUR CONSULTER LES PAGES DES UTILISATEURS*/}
 
-        <Route path="lkt">
+        <Route path="linktree">
           <Route path=":url_owner" element={<LinkTreePage />} />
         </Route>
 
