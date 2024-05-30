@@ -3,13 +3,13 @@ import {RootState} from "../../../store.ts";
 import {useEffect, useState} from "react";
 import {getOwnerInfos} from "./request.ts";
 import {Button, Card, CardMedia, Grid, Typography} from "@mui/material";
-import {UserPathsBranchs} from "../../common/types.ts";
+import {PathType} from "../../common/types.ts";
 import {formatUrlToTitle} from "./format-text.ts";
 
 export const Modification = () => {
 
   const userId = useSelector((state: RootState) => state.authentication.userId)
-  const [fulllUserInfo, setFulllUserInfo] = useState<UserPathsBranchs>();
+  const [fulllUserInfo, setFulllUserInfo] = useState<PathType>();
 
   useEffect(() => {
     getOwnerInfos(userId!)
@@ -22,11 +22,11 @@ export const Modification = () => {
 
   return (
     <>
-      <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10}>
+      <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10} textAlign="center">
         Voici votre Tree actuel :
       </Typography>
 
-      <Grid sx={{backgroundColor: `${fulllUserInfo?.path.bgColor}`, borderRadius: "8px", padding: 10, width: "80%", margin: "auto"}}>
+      <Grid sx={{backgroundColor: `${fulllUserInfo?.bgColor}`, borderRadius: "8px", padding: 10, width: "80%", margin: "auto"}}>
         <Grid mt={10} container direction="column" justifyContent="center" alignItems="center">
 
           <Grid item>
@@ -43,16 +43,16 @@ export const Modification = () => {
           </Grid>
 
           <Typography variant="h2" fontWeight={800} component="div">
-            {formatUrlToTitle(fulllUserInfo?.path.url_owner)}
+            {formatUrlToTitle(fulllUserInfo?.url_owner)}
           </Typography>
           <Grid item>
-            {fulllUserInfo?.path.bio}
+            {fulllUserInfo?.bio}
           </Grid>
 
           <Grid container direction="column" justifyContent="center" alignItems="center">
 
 
-            {fulllUserInfo?.path?.branchs.map((b) =>
+            {fulllUserInfo?.branchs.map((b) =>
               <Grid item mt={3}>
                 <Button sx={{backgroundColor: "black"}} variant="contained" href={b.url_network} target="_blank">{b.name_network}</Button>
               </Grid>
