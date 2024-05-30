@@ -22,43 +22,46 @@ export const Modification = () => {
 
   return (
     <>
+      <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10}>
+        Voici votre Tree actuel :
+      </Typography>
 
-      <Grid mt={10} container direction="column" justifyContent="center" alignItems="center">
+      <Grid sx={{backgroundColor: `${fulllUserInfo?.path.bgColor}`, borderRadius: "8px", padding: 10, width: "80%", margin: "auto"}}>
+        <Grid mt={10} container direction="column" justifyContent="center" alignItems="center">
 
-        <Typography variant="h4" fontWeight={800} component="div" mb={10}>
-          Voici votre Tree actuel :
-        </Typography>
-        <Grid item>
-          <Card>
-            {/*MARCHE PAS :/, TROUVER UNE SOLUTION*/}
-            <CardMedia
-              component="img"
-              height="200"
-              width="200"
-              image="src/assets/home_section_2.jpg"
-              alt="Paella dish"
-            />
-          </Card>
-        </Grid>
+          <Grid item>
+            <Card>
+              {/*MARCHE PAS :/, TROUVER UNE SOLUTION*/}
+              <CardMedia
+                component="img"
+                height="200"
+                width="200"
+                image="src/assets/home_section_2.jpg"
+                alt="Paella dish"
+              />
+            </Card>
+          </Grid>
 
-        <Typography variant="h2" fontWeight={800} component="div">
-          {formatUrlToTitle(fulllUserInfo?.path.url_owner)}
-        </Typography>
-        <Grid item>
-          {fulllUserInfo?.path.bio}
-        </Grid>
+          <Typography variant="h2" fontWeight={800} component="div">
+            {formatUrlToTitle(fulllUserInfo?.path.url_owner)}
+          </Typography>
+          <Grid item>
+            {fulllUserInfo?.path.bio}
+          </Grid>
 
-        <Grid container direction="column" justifyContent="center" alignItems="center">
+          <Grid container direction="column" justifyContent="center" alignItems="center">
 
 
-          {fulllUserInfo?.path?.branchs.map((b) =>
-            <Grid item mt={3}>
-              <Button sx={{backgroundColor: "black"}} variant="contained" href={b.url_network}  target="_blank">{b.name_network}</Button>
-            </Grid>
-          )
-          }
+            {fulllUserInfo?.path?.branchs.map((b) =>
+              <Grid item mt={3}>
+                <Button sx={{backgroundColor: "black"}} variant="contained" href={b.url_network} target="_blank">{b.name_network}</Button>
+              </Grid>
+            )
+            }
+          </Grid>
         </Grid>
       </Grid>
+
     </>
   )
 }

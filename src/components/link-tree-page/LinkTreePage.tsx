@@ -22,7 +22,7 @@ export const LinkTreePage = () => {
   }, [url_owner]);
 
   return (
-    <Grid container direction="column" justifyContent="center" alignItems="center">
+    <Grid  sx={{backgroundColor: `${userPath?.bgColor}` , borderRadius: "8px", padding: 15,}} container direction="column" justifyContent="center" alignItems="center">
       <Grid item>
         <Card>
           {/*MARCHE PAS :/, TROUVER UNE SOLUTION*/}
@@ -36,11 +36,13 @@ export const LinkTreePage = () => {
         </Card>
       </Grid>
 
-      <Typography variant="h2" fontWeight={800} component="div">
+      <Typography color={userPath?.bgColor === "white" ? "black" : "white"} variant="h2" fontWeight={800} component="div">
         {formatUrlToTitle(userPath?.url_owner)}
       </Typography>
       <Grid item>
-        La bio de l'utilisateur que je n'ai toujours implementé dans la base de donnée
+        <Typography color={userPath?.bgColor === "white" ? "black" : "white"}>
+          {userPath?.bio}
+        </Typography>
       </Grid>
 
       <Grid container direction="column" justifyContent="center" alignItems="center">
