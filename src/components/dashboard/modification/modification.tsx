@@ -18,7 +18,7 @@ export const Modification = () => {
         console.log("Error get owner info");
         console.error(error);
       });
-  }, []);
+  }, [userId]);
 
   return (
     <>
