@@ -10,7 +10,7 @@ import {setRoleOnLogin} from "./features/authentication/auth-slice.ts";
 import {useDispatch} from "react-redux";
 import {AdminHome} from "./components/admin/admin-home.tsx";
 import {LinkTreePage} from "./components/link-tree-page/LinkTreePage.tsx";
-import {MainDashboard} from "./components/dashboard/main-dashboard.tsx";
+import {MainDashboard} from "./components/dashboard/user-dashboard/main-dashboard.tsx";
 import {ProtectedAdminRoute, ProtectedIdentifiedRoute} from "./features/protected-routes/protect-routes.tsx";
 import {Modification} from "./components/dashboard/modification/modification.tsx";
 
