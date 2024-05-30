@@ -10,6 +10,7 @@ import {setRoleOnLogin} from "./features/authentication/auth-slice.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {AdminHome} from "./components/admin/admin-home.tsx";
 import {RootState} from "./store.ts";
+import {LinkTreePage} from "./components/link-tree-page/LinkTreePage.tsx";
 
 const ProtectedRoute = ({children}: { children: React.ReactNode }) => {
   const navigate = useNavigate();
@@ -50,6 +51,13 @@ const App = () => {
         </Route>
         <Route path="register" element={<Register/>}/>
         <Route path="login" element={<Login/>}/>
+
+        {/* URL PUBLIQUE POUR CONSULTER LES PAGES DES UTILISATEURS*/}
+
+        <Route path="lkt">
+          <Route path=":url_owner" element={<LinkTreePage />} />
+        </Route>
+
         <Route path="*" element={<PageNotFoundPage/>}/>
       </Routes>
     </BrowserRouter>
