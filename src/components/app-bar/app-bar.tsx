@@ -42,6 +42,10 @@ export const AppBar = () => {
     if (selectable === "Logout") {
       dispatch(logout())
     }
+
+    if (selectable === "Dashboard") {
+      nav("/dashboard")
+    }
     setAnchorElUser(null);
   };
 
