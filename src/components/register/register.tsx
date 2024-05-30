@@ -1,7 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {Button, Grid, TextField} from "@mui/material";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-
 import {useState} from "react";
 import {RegisterObject} from "./type.ts";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -19,7 +18,8 @@ export const Register = () => {
       .catch((error) => {
         console.log("Alert Register");
         console.error(error);
-      });  }
+      });
+  }
 
   return (
     <Grid container bgcolor="white" flexDirection="column" padding={10} width="50%" margin="auto" alignContent="center" borderRadius="8px">
@@ -31,7 +31,6 @@ export const Register = () => {
       <Button variant="contained" onClick={handleRegister} sx={{backgroundColor: "black", marginTop: "20px"}}>Register</Button>
       <Button variant="text" size="small" onClick={() => nav("/login")} sx={{marginTop: "20px", color: "black"}}>Login</Button>
       <Button variant="text" size="small" onClick={() => nav("/")} sx={{marginTop: "20px", color: "black"}}><KeyboardBackspaceIcon/></Button>
-
     </Grid>
   )
 }
