@@ -45,7 +45,7 @@ export const Modification = () => {
           {formatUrlToTitle(fulllUserInfo?.path.url_owner)}
         </Typography>
         <Grid item>
-          La bio de l'utilisateur que je n'ai toujours implementé dans la base de donnée
+          {fulllUserInfo?.path.bio}
         </Grid>
 
         <Grid container direction="column" justifyContent="center" alignItems="center">

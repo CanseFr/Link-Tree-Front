@@ -10,6 +10,7 @@ export interface BranchsType {
 export interface PathType {
   id: number;
   createdAt: string;
+  bio: string;
   updatedAt: string;
   url_owner: string;
   userId: number;
