@@ -2,33 +2,10 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getUrlOwner} from "./request.ts";
 import {Button, Card, CardMedia, Grid, Typography} from "@mui/material";
+import {PathType} from "../common/types.ts";
+import {formatUrlToTitle} from "../dashboard/modification/format-text.ts";
 
-interface BranchsType {
-  createdAt: string;
-  id: number;
-  name_network: string;
-  pathId: number;
-  updatedAt: string;
-  url_network: string;
-}
 
-interface PathType {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-  url_owner: string;
-  userId: number;
-  branchs: BranchsType[];
-}
-
-const formatUrlToTitle = (pathUrl: string | undefined) => {
-  if (pathUrl) {
-    const firstLetterToUpperCase = pathUrl[1].charAt(0).toUpperCase();
-    const urlWithOutSlash = pathUrl.split("/")[1]
-    const urlWithOutFirstLetter = urlWithOutSlash.slice(1, urlWithOutSlash.length)
-    return firstLetterToUpperCase.concat(urlWithOutFirstLetter)
-  }
-}
 
 export const LinkTreePage = () => {
 
@@ -58,7 +35,6 @@ export const LinkTreePage = () => {
           />
         </Card>
       </Grid>
-
 
       <Typography variant="h2" fontWeight={800} component="div">
         {formatUrlToTitle(userPath?.url_owner)}

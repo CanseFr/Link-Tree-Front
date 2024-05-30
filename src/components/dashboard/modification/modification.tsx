@@ -1,7 +1,64 @@
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store.ts";
+import {useEffect, useState} from "react";
+import {getOwnerInfos} from "./request.ts";
+import {Button, Card, CardMedia, Grid, Typography} from "@mui/material";
+import {UserPathsBranchs} from "../../common/types.ts";
+import {formatUrlToTitle} from "./format-text.ts";
+
 export const Modification = () => {
+
+  const userId = useSelector((state: RootState) => state.authentication.userId)
+  const [fulllUserInfo, setFulllUserInfo] = useState<UserPathsBranchs>();
+
+  useEffect(() => {
+    getOwnerInfos(userId!)
+      .then(setFulllUserInfo)
+      .catch((error) => {
+        console.log("Error get owner info");
+        console.error(error);
+      });
+  }, []);
+
   return (
     <>
-      Modification page
+
+      <Grid mt={10} container direction="column" justifyContent="center" alignItems="center">
+
+        <Typography variant="h4" fontWeight={800} component="div" mb={10}>
+          Voici votre Tree actuel :
+        </Typography>
+        <Grid item>
+          <Card>
+            {/*MARCHE PAS :/, TROUVER UNE SOLUTION*/}
+            <CardMedia
+              component="img"
+              height="200"
+              width="200"
+              image="src/assets/home_section_2.jpg"
+              alt="Paella dish"
+            />
+          </Card>
+        </Grid>
+
+        <Typography variant="h2" fontWeight={800} component="div">
+          {formatUrlToTitle(fulllUserInfo?.path.url_owner)}
+        </Typography>
+        <Grid item>
+          La bio de l'utilisateur que je n'ai toujours implementé dans la base de donnée
+        </Grid>
+
+        <Grid container direction="column" justifyContent="center" alignItems="center">
+
+
+          {fulllUserInfo?.path?.branchs.map((b) =>
+            <Grid item mt={3}>
+              <Button sx={{backgroundColor: "black"}} variant="contained" href={b.url_network}  target="_blank">{b.name_network}</Button>
+            </Grid>
+          )
+          }
+        </Grid>
+      </Grid>
     </>
   )
 }
