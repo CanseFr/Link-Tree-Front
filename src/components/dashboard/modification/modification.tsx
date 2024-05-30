@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../store.ts";
 import {useEffect, useState} from "react";
 import {getOwnerInfos} from "./request.ts";
-import {Button, Card, CardMedia, Grid, Typography} from "@mui/material";
+import {Button, Card, CardMedia, Grid, TextField, Typography} from "@mui/material";
 import {PathType} from "../../common/types.ts";
 import {formatUrlToTitle} from "./format-text.ts";
 import CreateIcon from '@mui/icons-material/Create';
@@ -17,6 +17,7 @@ export const Modification = () => {
   const [fulllUserInfo, setFulllUserInfo] = useState<PathType>();
 
   const [modifyBgColor, setModifyBgColor] = useState<boolean>(false)
+  const [modifyTxtFields, setModifyTxtFields] = useState<boolean>(false)
 
   const handleModifyBgColor = (newValue: string) => {
     setFulllUserInfo(prevState => {
@@ -29,11 +30,25 @@ export const Modification = () => {
     });
   };
 
+  const handleCloseTxtFields = () => {
+    setModifyTxtFields(false)
+    handleRefreshPage()
+  }
+
+  const handleCloseColorPicker = () => {
+    setModifyBgColor(false)
+    handleRefreshPage()
+  }
+
+  //  TODO: Optimiser les onchange avec un generic by param
+
   const handleValidateModification = () => {
     genericFetchWithBody<PathType>('/path-profil/' + userId, "PATCH", fulllUserInfo!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
 
+    setModifyBgColor(false)
+    setModifyTxtFields(false)
   }
 
   const handleRefreshPage = () => {
@@ -61,7 +76,7 @@ export const Modification = () => {
           <Button onClick={handleValidateModification}>
             <DoneIcon/>
           </Button>
-          <Button onClick={handleRefreshPage}>
+          <Button onClick={handleCloseColorPicker}>
             <CloseIcon/>
           </Button>
         </Grid>
@@ -86,25 +101,118 @@ export const Modification = () => {
                 alt="Paella dish"
               />
             </Card>
+            {/* TODO: Implementer picture*/}
+            <Grid display="flex" justifyContent="right">
+              <Button sx={{backgroundColor: "black"}} variant="contained">
+                <CreateIcon/>
+              </Button>
+            </Grid>
           </Grid>
 
-          <Typography variant="h2" fontWeight={800} component="div">
-            {formatUrlToTitle(fulllUserInfo?.url_owner)}
-          </Typography>
-          <Grid item>
-            {fulllUserInfo?.bio}
-          </Grid>
-
-          <Grid container direction="column" justifyContent="center" alignItems="center">
-
-
-            {fulllUserInfo?.branchs.map((b) =>
-              <Grid item mt={3} key={b.id}>
-                <Button sx={{backgroundColor: "black"}} variant="contained" href={b.url_network} target="_blank">{b.name_network}</Button>
+          {modifyTxtFields ? (
+              <Grid>
+                {/*User Name Path*/}
+                <Grid item>
+                  <TextField
+                    id="outlined-basic"
+                    InputLabelProps={{shrink: true}}
+                    label="Url"
+                    defaultValue={formatUrlToTitle(fulllUserInfo?.url_owner)}
+                    value={formatUrlToTitle(fulllUserInfo?.url_owner)}
+                    variant="outlined"
+                    onChange={(e) => setFulllUserInfo((prevState) => {
+                        if (prevState) {
+                          return {
+                            ...prevState,
+                            url_owner: "/" + e.target.value,
+                          };
+                        }
+                      }
+                    )
+                    }
+                  />
+                </Grid>
+                <br/>
+                {/*Bio*/}
+                <Grid item>
+                  <TextField
+                    id="outlined-basic"
+                    InputLabelProps={{shrink: true}}
+                    label="Bio"
+                    defaultValue={fulllUserInfo?.bio}
+                    multiline={true}
+                    value={fulllUserInfo?.bio}
+                    variant="outlined"
+                    onChange={(e) => setFulllUserInfo((prevState) => {
+                        if (prevState) {
+                          return {
+                            ...prevState,
+                            bio: e.target.value,
+                          };
+                        }
+                      }
+                    )
+                    }
+                  />
+                </Grid>
+                <br/>
+                {/*Link*/}
+                <Grid item>
+                  {fulllUserInfo?.branchs.map((link, index) =>
+                    <Grid item mt={3} key={link.id}>
+                      <TextField
+                        id="outlined-basic"
+                        InputLabelProps={{shrink: true}}
+                        label={`Link ${index}`}
+                        value={link.name_network}
+                        variant="outlined"/>
+                    </Grid>
+                  )}
+                </Grid>
+                <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
+                  <Button onClick={handleValidateModification}>
+                    <DoneIcon/>
+                  </Button>
+                  <Button onClick={handleCloseTxtFields}>
+                    <CloseIcon/>
+                  </Button>
+                </Grid>
               </Grid>
-            )}
-          </Grid>
+
+
+            ) :
+            (
+              <>
+                {/*User Name Path*/}
+                <Typography variant="h2" fontWeight={800} component="div">
+                  {formatUrlToTitle(fulllUserInfo?.url_owner)}
+                </Typography>
+
+                {/*Bio*/}
+                <Grid item>
+                  {fulllUserInfo?.bio}
+                </Grid>
+
+                {/*Link*/}
+                <Grid container direction="column" justifyContent="center" alignItems="center">
+                  {fulllUserInfo?.branchs.map((b) =>
+                    <Grid item mt={3} key={b.id}>
+                      <Button sx={{backgroundColor: "black"}} variant="contained" href={b.url_network} target="_blank">{b.name_network}</Button>
+                    </Grid>
+                  )}
+                </Grid>
+              </>
+            )
+          }
+
         </Grid>
+
+        <Grid display="flex" justifyContent="right">
+          <Button sx={{backgroundColor: "black"}} onClick={() => setModifyTxtFields(!modifyTxtFields)} variant="contained">
+            <CreateIcon/>
+          </Button>
+        </Grid>
+
       </Grid>
 
     </>
