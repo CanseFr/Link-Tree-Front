@@ -60,6 +60,19 @@ export const Modification = () => {
       });
   }
 
+  const handleBranchChange = (id: number, newValue: string) => {
+    setFulllUserInfo((prevState) => {
+        if (prevState){
+          return {
+            ...prevState,
+            branchs: prevState.branchs.map((branch) =>
+              branch.id === id ? { ...branch, name_network: newValue } : branch
+            ),
+          };
+        }
+    });
+  };
+
 
   useEffect(() => {
     handleRefreshPage()
@@ -163,9 +176,29 @@ export const Modification = () => {
                       <TextField
                         id="outlined-basic"
                         InputLabelProps={{shrink: true}}
-                        label={`Link ${index}`}
+                        label={`Link ${index + 1}`}
                         value={link.name_network}
-                        variant="outlined"/>
+                        variant="outlined"
+                        // onChange={(e) => setFulllUserInfo((prevState) => {
+                        //      if (prevState){
+                        //         return {
+                        //           ...prevState,
+                        //           ...prevState.branchs.map((prevBranchs)=>{
+                        //             if (prevBranchs){
+                        //               return {
+                        //                 ...prevBranchs,
+                        //                 name_network: e.target.value
+                        //               }
+                        //             }
+                        //           })
+                        //         }
+                        //      }
+                        //     }
+                        //   )
+                        // }
+                        onChange={(e) => handleBranchChange(link.id, e.target.value)}
+
+                      />
                     </Grid>
                   )}
                 </Grid>
