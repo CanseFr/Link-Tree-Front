@@ -1,3 +1,16 @@
+export interface BranchsPartialType {
+  name_network: string;
+  url_network: string;
+}
+
+export interface PathPartialType {
+  bio: string;
+  bgColor: string;
+  url_owner: string;
+  userId: number;
+  branchs: BranchsPartialType[];
+}
+
 export interface BranchsType {
   createdAt: string;
   id: number;
@@ -17,6 +30,7 @@ export interface PathType {
   userId: number;
   branchs: BranchsType[];
 }
+
 
 export interface UserPathsBranchs {
   createdAt: string;
