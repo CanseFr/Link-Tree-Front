@@ -32,6 +32,8 @@ export const Modification = () => {
   const [bgColorToCreate, setBgColorToCreate] = useState<string>("")
   const [branchToCreate, setBranchToCreate] = useState<BranchsPartialType>({url_network: "", name_network: ""})
 
+  // HANDLE CLOSE
+
   const handleCloseInfoFields = () => {
     setModifyInfoFields(false)
     handleRefreshPage()
@@ -47,7 +49,13 @@ export const Modification = () => {
     handleRefreshPage()
   }
 
-  //
+  const setAllToFalse = () => {
+    setModifyInfoFields(false)
+    setModifyBgColor(false)
+    setModifyLinksFields(false)
+  }
+
+  // HANDLE UPDATE
 
   const handleValidateBg = () => {
     console.log(pathWithNestedBranchs)
@@ -71,13 +79,7 @@ export const Modification = () => {
     setAllToFalse()
   }
 
-  //
-
-  const setAllToFalse = () => {
-    setModifyInfoFields(false)
-    setModifyBgColor(false)
-    setModifyLinksFields(false)
-  }
+  // REFRESH
 
   const handleRefreshPage = () => {
     getOwnerInfos(userId!)
@@ -88,7 +90,7 @@ export const Modification = () => {
       });
   }
 
-  //
+  // Handle Modify
 
   const handleModifyBgColor = (newValue: string) => {
     setPathWithNestedBranchs(prevState => {
@@ -115,6 +117,8 @@ export const Modification = () => {
     });
   };
 
+  //  HANDLE CREATE
+
   const handleCreateBgColor = (newValue: string) => {
     setBgColorToCreate(newValue);
   };
@@ -132,6 +136,7 @@ export const Modification = () => {
     )
   }
 
+  // UseEffect
 
   useEffect(() => {
     handleRefreshPage()
