@@ -14,6 +14,7 @@ import {AvatarFieldsModify} from "./components/avatar-fields-modify.tsx";
 import { PathProfilModify} from "./components/path-profil-modify.tsx";
 import {BioProfilModify} from "./components/bio-profil-modify.tsx";
 import {GenericCreateFields} from "./components/generic-create-fields-props.tsx";
+// import AddIcon from '@mui/icons-material/Add';
 
 
 // TO Separer dans des composant
@@ -79,6 +80,19 @@ export const Modification = () => {
       .catch((e) => console.log(e))
     setAllToFalse()
   }
+
+  // Handle Add
+
+  // const handleAddLinks = () => {
+  //   setPathWithNestedBranchs(prevState => {
+  //     if (prevState) {
+  //       return {
+  //         ...prevState,
+  //         ...prevState.branchs.push({url_network: "", name_network: "", id: "", createdAt:"", pathId: prevState.id, updatedAt: ""})
+  //       };
+  //     }
+  //   });
+  // }
 
   // REFRESH
 
@@ -296,6 +310,9 @@ export const Modification = () => {
                       )}
                     </Grid>
                     <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
+                      {/*<Button onClick={handleAddLinks}>*/}
+                      {/*  <AddIcon/>*/}
+                      {/*</Button>*/}
                       <Button onClick={handleValidateLinks}>
                         <DoneIcon/>
                       </Button>
