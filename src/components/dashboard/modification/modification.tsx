@@ -9,6 +9,10 @@ import {MuiColorInput} from "mui-color-input";
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import {formatUrlToTitle} from "./format-text.ts";
+import {ColorPickerBox} from "./components/color-picker-box.tsx";
+
+
+// TO Separer dans des composant
 
 export const Modification = () => {
 
@@ -40,16 +44,14 @@ export const Modification = () => {
     handleRefreshPage()
   }
 
-  //  TODO: Optimiser les onchange avec un generic by param
+  //
 
   const handleValidateBg = () => {
     console.log(pathWithNestedBranchs)
     updatePathProfil(pathWithNestedBranchs!.id!,pathWithNestedBranchs!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
-    setModifyBgColor(false)
-    setModifyLinksFields(false)
-    setModifyInfoFields(false)
+    setAllToFalse()
     handleRefreshPage()
   }
 
@@ -57,9 +59,7 @@ export const Modification = () => {
     updateAllBranchs(pathWithNestedBranchs!.id!,pathWithNestedBranchs!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
-    setModifyBgColor(false)
-    setModifyLinksFields(false)
-    setModifyInfoFields(false)
+    setAllToFalse()
     handleRefreshPage()
   }
 
@@ -67,13 +67,17 @@ export const Modification = () => {
     updatePathProfil(pathWithNestedBranchs!.id!,pathWithNestedBranchs!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
-    setModifyInfoFields(false)
-    setModifyBgColor(false)
-    setModifyLinksFields(false)
+    setAllToFalse()
     handleRefreshPage()
   }
 
+  //
 
+  const setAllToFalse =()=>{
+    setModifyInfoFields(false)
+    setModifyBgColor(false)
+    setModifyLinksFields(false)
+  }
 
   const handleRefreshPage = () => {
     getOwnerInfos(userId!)
@@ -84,6 +88,7 @@ export const Modification = () => {
       });
   }
 
+  //
 
   const handleModifyBgColor = (newValue: string) => {
     setPathWithNestedBranchs(prevState => {
@@ -225,28 +230,14 @@ export const Modification = () => {
           <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10} textAlign="center">
             Voici votre Tree actuel :
           </Typography>
+
+          {/*  MODIFY BG*/}
           {modifyBgColor && (
-
-
-
-
-
-            <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", backgroundColor: "white", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
-              <MuiColorInput format="hex" value={pathWithNestedBranchs!.bgColor} onChange={handleModifyBgColor}/>
-              <Button onClick={handleValidateBg}>
-                <DoneIcon/>
-              </Button>
-              <Button onClick={handleCloseColorPicker}>
-                <CloseIcon/>
-              </Button>
-            </Grid>
-
-
-
-
-
+            <ColorPickerBox pathWithNestedBranchs={pathWithNestedBranchs} handleModifyBgColor={handleModifyBgColor} handleValidateBg={handleValidateBg} handleCloseColorPicker={handleCloseColorPicker} />
           )}
+
           <br/>
+
           <Grid sx={{backgroundColor: `${pathWithNestedBranchs?.bgColor}`, borderRadius: "8px", padding: 10, width: "80%", margin: "auto"}}>
             <Grid display="flex" justifyContent="right">
               <Button sx={{backgroundColor: "black"}} onClick={() => setModifyBgColor(!modifyBgColor)} variant="contained">
