@@ -17,7 +17,8 @@ import {GenericCreateFields} from "./components/generic-create-fields-props.tsx"
 // import AddIcon from '@mui/icons-material/Add';
 
 
-// TO Separer dans des composant
+// TODO: Separer dans des composant
+// TODO:Ajouter une ligne de link avec un boutton
 
 export const Modification = () => {
 

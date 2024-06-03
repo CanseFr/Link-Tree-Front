@@ -13,6 +13,7 @@ import {LinkTreePage} from "./components/link-tree-page/LinkTreePage.tsx";
 import {MainDashboard} from "./components/dashboard/user-dashboard/main-dashboard.tsx";
 import {ProtectedAdminRoute, ProtectedIdentifiedRoute} from "./features/protected-routes/protect-routes.tsx";
 import {Modification} from "./components/dashboard/modification/modification.tsx";
+import {AdminUserDashboard} from "./components/admin/admin-user/admin-user-dashboard.tsx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/" element={<AppBar/>}>
           <Route index element={<Home/>}/>
           <Route path="admin" element={<ProtectedAdminRoute><AdminHome/></ProtectedAdminRoute>}/>
+          <Route path="admin/user" element={<ProtectedAdminRoute><AdminUserDashboard/></ProtectedAdminRoute>}/>
           <Route path="dashboard" element={<ProtectedIdentifiedRoute><MainDashboard/></ProtectedIdentifiedRoute>}/>
           <Route path="dashboard/modification" element={<ProtectedIdentifiedRoute><Modification/></ProtectedIdentifiedRoute>}/>
         </Route>
