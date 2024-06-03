@@ -55,7 +55,6 @@ export const Modification = () => {
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
     setAllToFalse()
-    handleRefreshPage()
   }
 
   const handleValidateLinks = () => {
@@ -63,7 +62,6 @@ export const Modification = () => {
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
     setAllToFalse()
-    handleRefreshPage()
   }
 
   const handleValidateInfo = () => {
@@ -71,7 +69,6 @@ export const Modification = () => {
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
     setAllToFalse()
-    handleRefreshPage()
   }
 
   //
