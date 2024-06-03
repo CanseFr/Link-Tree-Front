@@ -11,7 +11,7 @@ interface ColorPickerBoxProps {
   handleCloseColorPicker: ()=>void ;
 }
 
-export const ColorPickerBox = ({pathWithNestedBranchs,handleModifyBgColor,handleValidateBg,handleCloseColorPicker}: ColorPickerBoxProps) => {
+export const ColorBgModify = ({pathWithNestedBranchs,handleModifyBgColor,handleValidateBg,handleCloseColorPicker}: ColorPickerBoxProps) => {
   return (
     <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", backgroundColor: "white", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
       <MuiColorInput format="hex" value={pathWithNestedBranchs!.bgColor} onChange={handleModifyBgColor}/>

@@ -2,14 +2,17 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../store.ts";
 import {useEffect, useState} from "react";
 import {createPathProfile, getOwnerInfos, updateAllBranchs, updatePathProfil} from "./request.ts";
-import {Button, Card, CardMedia, Grid, TextField, Typography} from "@mui/material";
+import {Button, Grid, TextField, Typography} from "@mui/material";
 import {BranchsPartialType, PathPartialType, PathType} from "../../common/types.ts";
 import CreateIcon from '@mui/icons-material/Create';
 import {MuiColorInput} from "mui-color-input";
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import {formatUrlToTitle} from "./format-text.ts";
-import {ColorPickerBox} from "./components/color-picker-box.tsx";
+import {ColorBgModify} from "./components/color-bg-modify.tsx";
+import {AvatarFieldsModify} from "./components/avatar-fields-modify.tsx";
+import {PathProfilModify} from "./components/path-profil-modify.tsx";
+import {BioProfilModify} from "./components/bio-profil-modify.tsx";
 
 
 // TO Separer dans des composant
@@ -48,7 +51,7 @@ export const Modification = () => {
 
   const handleValidateBg = () => {
     console.log(pathWithNestedBranchs)
-    updatePathProfil(pathWithNestedBranchs!.id!,pathWithNestedBranchs!)
+    updatePathProfil(pathWithNestedBranchs!.id!, pathWithNestedBranchs!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
     setAllToFalse()
@@ -56,7 +59,7 @@ export const Modification = () => {
   }
 
   const handleValidateLinks = () => {
-    updateAllBranchs(pathWithNestedBranchs!.id!,pathWithNestedBranchs!)
+    updateAllBranchs(pathWithNestedBranchs!.id!, pathWithNestedBranchs!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
     setAllToFalse()
@@ -64,7 +67,7 @@ export const Modification = () => {
   }
 
   const handleValidateInfo = () => {
-    updatePathProfil(pathWithNestedBranchs!.id!,pathWithNestedBranchs!)
+    updatePathProfil(pathWithNestedBranchs!.id!, pathWithNestedBranchs!)
       .then((d) => console.log(d))
       .catch((e) => console.log(e))
     setAllToFalse()
@@ -73,7 +76,7 @@ export const Modification = () => {
 
   //
 
-  const setAllToFalse =()=>{
+  const setAllToFalse = () => {
     setModifyInfoFields(false)
     setModifyBgColor(false)
     setModifyLinksFields(false)
@@ -139,12 +142,11 @@ export const Modification = () => {
 
   return (
     <>
-
+      {/*START CREATE PROFIL*/}
       {
         !pathWithNestedBranchs ?
           <Grid textAlign="center">
             <Grid item>
-
               <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10} textAlign="center">
                 Vous ne possedez pas Tree pour le moment
               </Typography>
@@ -225,97 +227,46 @@ export const Modification = () => {
               </Grid>
             )}
           </Grid>
+          // END CREATE PROFIL
           :
-          <>
-          <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10} textAlign="center">
-            Voici votre Tree actuel :
-          </Typography>
+          // START MODIFY
+          <Grid>
+            <Typography variant="h4" fontWeight={800} component="div" mt={10} mb={10} textAlign="center">
+              Voici votre Tree actuel :
+            </Typography>
 
-          {/*  MODIFY BG*/}
-          {modifyBgColor && (
-            <ColorPickerBox pathWithNestedBranchs={pathWithNestedBranchs} handleModifyBgColor={handleModifyBgColor} handleValidateBg={handleValidateBg} handleCloseColorPicker={handleCloseColorPicker} />
-          )}
+            {/*  MODIFY BG*/}
+            {modifyBgColor && (
+              <ColorBgModify pathWithNestedBranchs={pathWithNestedBranchs} handleModifyBgColor={handleModifyBgColor} handleValidateBg={handleValidateBg}
+                             handleCloseColorPicker={handleCloseColorPicker}/>
+            )}
 
-          <br/>
+            <br/>
 
-          <Grid sx={{backgroundColor: `${pathWithNestedBranchs?.bgColor}`, borderRadius: "8px", padding: 10, width: "80%", margin: "auto"}}>
-            <Grid display="flex" justifyContent="right">
-              <Button sx={{backgroundColor: "black"}} onClick={() => setModifyBgColor(!modifyBgColor)} variant="contained">
-                <CreateIcon/>
-              </Button>
-            </Grid>
-            <Grid mt={10} container direction="column" justifyContent="center" alignItems="center">
-
-              <Grid item>
-                <Card>
-                  {/*MARCHE PAS :/, TROUVER UNE SOLUTION*/}
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    width="200"
-                    image="src/assets/home_section_2.jpg"
-                    alt="Paella dish"
-                  />
-                </Card>
-                {/* TODO: Implementer picture*/}
-                <Grid display="flex" justifyContent="right">
-                  <Button sx={{backgroundColor: "black"}} variant="contained">
-                    <CreateIcon/>
-                  </Button>
-                </Grid>
+            <Grid sx={{backgroundColor: `${pathWithNestedBranchs?.bgColor}`, borderRadius: "8px", padding: 10, width: "80%", margin: "auto"}}>
+              <Grid display="flex" justifyContent="right">
+                <Button sx={{backgroundColor: "black"}} onClick={() => setModifyBgColor(!modifyBgColor)} variant="contained">
+                  <CreateIcon/>
+                </Button>
               </Grid>
+              <Grid mt={10} container direction="column" justifyContent="center" alignItems="center">
 
-              {modifyInfoFields ? (
+                {/*MODIFY AVATAR*/}
+                <AvatarFieldsModify/>
+
+                {/*MODIFY INFO FILEDS*/}
+                {modifyInfoFields ? (
                   <Grid>
-                    {/*User Name Path*/}
-                    <Grid item>
-                      <TextField
-                        id="outlined-basic"
-                        InputLabelProps={{shrink: true}}
-                        label="Url"
-                        defaultValue={formatUrlToTitle(pathWithNestedBranchs?.url_owner)}
-                        value={formatUrlToTitle(pathWithNestedBranchs?.url_owner)}
-                        variant="outlined"
-                        onChange={(e) => setPathWithNestedBranchs((prevState) => {
-                            if (prevState) {
-                              return {
-                                ...prevState,
-                                url_owner: "/" + e.target.value,
-                              };
-                            }
-                          }
-                        )
-                        }
-                      />
-                    </Grid>
-                    <br/>
-                    {/*Bio*/}
-                    <Grid item>
-                      <TextField
-                        id="outlined-basic"
-                        InputLabelProps={{shrink: true}}
-                        label="Bio"
-                        defaultValue={pathWithNestedBranchs?.bio}
-                        multiline={true}
-                        value={pathWithNestedBranchs?.bio}
-                        variant="outlined"
-                        onChange={(e) => setPathWithNestedBranchs((prevState) => {
-                            if (prevState) {
-                              return {
-                                ...prevState,
-                                bio: e.target.value,
-                              };
-                            }
-                          }
-                        )
-                        }
-                      />
-                    </Grid>
+
+                    {/*Modify Path Profil*/}
+                    <PathProfilModify pathWithNestedBranchs={pathWithNestedBranchs} setPathWithNestedBranchs={setPathWithNestedBranchs}/>
                     <br/>
 
+                    {/*Modify Bio*/}
+                    <BioProfilModify pathWithNestedBranchs={pathWithNestedBranchs} setPathWithNestedBranchs={setPathWithNestedBranchs}/>
+                    <br/>
 
-                    {/*Link*/}
-
+                    {/*Validation button modify */}
                     <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
                       <Button onClick={handleValidateInfo}>
                         <DoneIcon/>
@@ -324,65 +275,63 @@ export const Modification = () => {
                         <CloseIcon/>
                       </Button>
                     </Grid>
+
                   </Grid>
-
-
-                ) :
-                (
-                  <>
-                    {/*User Name Path*/}
+                ) : (
+                  <Grid>
+                    {/*Display Path Profil*/}
                     <Typography variant="h2" fontWeight={800} component="div">
                       {formatUrlToTitle(pathWithNestedBranchs?.url_owner)}
                     </Typography>
 
-                    {/*Bio*/}
+                    {/*Display Bio Profil*/}
                     <Grid item>
                       {pathWithNestedBranchs?.bio}
                     </Grid>
-
-                  </>
-                )
-              }
-
-            </Grid>
-
-            <Grid display="flex" justifyContent="right">
-              <Button sx={{backgroundColor: "black"}} onClick={() => setModifyInfoFields(!modifyInfoFields)} variant="contained">
-                <CreateIcon/>
-              </Button>
-            </Grid>
-
-            {modifyLinksFields ? (
-                <Grid>
-                  {/*Link*/}
-                  <Grid item>
-                    {pathWithNestedBranchs?.branchs.map((link, index) =>
-                      <Grid item mt={3} key={link.id}>
-                        <TextField
-                          id="outlined-basic"
-                          InputLabelProps={{shrink: true}}
-                          label={`Link ${index + 1}`}
-                          value={link.name_network}
-                          variant="outlined"
-                          onChange={(e) => handleBranchChange(link.id, e.target.value)}
-
-                        />
-                      </Grid>
-                    )}
                   </Grid>
-                  <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
-                    <Button onClick={handleValidateLinks}>
-                      <DoneIcon/>
-                    </Button>
-                    <Button onClick={handleCloseLinksFields}>
-                      <CloseIcon/>
-                    </Button>
+                )}
+              </Grid>
+              {/*END MODIFY*/}
+
+              {/*PEN START TO MODIFY LIST NETWORK*/}
+              <Grid display="flex" justifyContent="right">
+                <Button sx={{backgroundColor: "black"}} onClick={() => setModifyInfoFields(!modifyInfoFields)} variant="contained">
+                  <CreateIcon/>
+                </Button>
+              </Grid>
+              {/*PEN START TO MODIFY LIST NETWORK*/}
+
+              {/* LINK START MODIFY */}
+              {modifyLinksFields ? (
+                  <Grid>
+                    <Grid item>
+                      {pathWithNestedBranchs?.branchs.map((link, index) =>
+                        <Grid item mt={3} key={link.id}>
+                          <TextField
+                            id="outlined-basic"
+                            InputLabelProps={{shrink: true}}
+                            label={`Link ${index + 1}`}
+                            value={link.name_network}
+                            variant="outlined"
+                            onChange={(e) => handleBranchChange(link.id, e.target.value)}
+
+                          />
+                        </Grid>
+                      )}
+                    </Grid>
+                    <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
+                      <Button onClick={handleValidateLinks}>
+                        <DoneIcon/>
+                      </Button>
+                      <Button onClick={handleCloseLinksFields}>
+                        <CloseIcon/>
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              ) :
-              (
-                <>
-                  {/*Link*/}
+              // LINK END MODIFY
+                ) :
+                (
+                  // LINK START DISPLAY
                   <Grid container direction="column" justifyContent="center" alignItems="center">
                     {pathWithNestedBranchs?.branchs.map((b) =>
                       <Grid item mt={3} key={b.id}>
@@ -390,26 +339,20 @@ export const Modification = () => {
                       </Grid>
                     )}
                   </Grid>
-                </>
-              )
-            }
-
-
-
-            <Grid>
-
-              <Grid display="flex" justifyContent="right">
-                <Button sx={{backgroundColor: "black"}} onClick={() => setModifyLinksFields(!modifyLinksFields)} variant="contained">
-                  <CreateIcon/>
-                </Button>
+                  // LINK END DISPLAY
+                )
+              }
+              {/* BUTTON START TO MODIFY NETWORK*/}
+              <Grid>
+                <Grid display="flex" justifyContent="right">
+                  <Button sx={{backgroundColor: "black"}} onClick={() => setModifyLinksFields(!modifyLinksFields)} variant="contained">
+                    <CreateIcon/>
+                  </Button>
+                </Grid>
               </Grid>
-
             </Grid>
-
+              {/* BUTTON START TO MODIFY NETWORK*/}
           </Grid>
-
-
-        </>
 
 
       }
