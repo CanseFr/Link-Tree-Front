@@ -9,6 +9,9 @@ import {Grid} from "@mui/material";
 import {useEffect, useState} from "react";
 import {getUsers} from "./request.ts";
 import {userType} from "./types.ts";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeIcon from '@mui/icons-material/Mode';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 // TODO: Boutton d'action crud
 
@@ -51,7 +54,7 @@ export const AdminUserDashboard = () => {
                 <TableCell align="right">{row.email}</TableCell>
                 <TableCell align="right">{row.role}</TableCell>
                 <TableCell align="right">{row.createdAt.split("T")[0]}</TableCell>
-                <TableCell align="right">Introduire boutton d'action</TableCell>
+                <TableCell align="right" ><RemoveRedEyeIcon color="success"/><ModeIcon color="primary"/><DeleteIcon color="error"/></TableCell>
               </TableRow>
             ))}
           </TableBody>
