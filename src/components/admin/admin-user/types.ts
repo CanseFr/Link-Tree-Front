@@ -4,4 +4,5 @@ export interface userType{
   lastname: string;
   email: string;
   role: string;
+  createdAt: string;
 }

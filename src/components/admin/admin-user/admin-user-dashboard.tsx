@@ -27,10 +27,12 @@ export const AdminUserDashboard = () => {
           <TableHead>
             <TableRow>
               <TableCell>Utilisateurs</TableCell>
+              <TableCell align="right">Avatar</TableCell>
               <TableCell align="right">Firstname</TableCell>
               <TableCell align="right">Lastname</TableCell>
               <TableCell align="right">Email</TableCell>
               <TableCell align="right">Role</TableCell>
+              <TableCell align="right">Creation</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -43,10 +45,12 @@ export const AdminUserDashboard = () => {
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
+                <TableCell align="right">Avatar user</TableCell>
                 <TableCell align="right">{row.firstname}</TableCell>
                 <TableCell align="right">{row.lastname}</TableCell>
                 <TableCell align="right">{row.email}</TableCell>
                 <TableCell align="right">{row.role}</TableCell>
+                <TableCell align="right">{row.createdAt.split("T")[0]}</TableCell>
                 <TableCell align="right">Introduire boutton d'action</TableCell>
               </TableRow>
             ))}
