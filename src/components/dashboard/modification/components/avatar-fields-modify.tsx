@@ -5,7 +5,7 @@ export const AvatarFieldsModify = () => {
   return (
     <Grid item>
       <Card>
-        {/*MARCHE PAS :/, TROUVER UNE SOLUTION*/}
+        {/*MARCHE PAS :/, TROUVER UNE SOLUTION + Implementer la base */}
         <CardMedia
           component="img"
           height="200"

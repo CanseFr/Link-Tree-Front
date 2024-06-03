@@ -11,8 +11,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import {formatUrlToTitle} from "./format-text.ts";
 import {ColorBgModify} from "./components/color-bg-modify.tsx";
 import {AvatarFieldsModify} from "./components/avatar-fields-modify.tsx";
-import {PathProfilModify} from "./components/path-profil-modify.tsx";
+import { PathProfilModify} from "./components/path-profil-modify.tsx";
 import {BioProfilModify} from "./components/bio-profil-modify.tsx";
+import {GenericCreateFields} from "./components/generic-create-fields-props.tsx";
 
 
 // TO Separer dans des composant
@@ -191,33 +192,8 @@ export const Modification = () => {
                 <Typography mb={5}>
                   Vos reseaux
                 </Typography>
-
-                <Grid item mb={5}>
-                  <TextField
-                    id="outlined-basic"
-                    InputLabelProps={{shrink: true}}
-                    label="Link name"
-                    value={branchToCreate?.name_network}
-                    variant="outlined"
-                    onChange={(e) => setBranchToCreate((prev) => ({
-                      ...prev,
-                      name_network: e.target.value,
-                    }))}
-                  />
-                </Grid>
-                <Grid item mb={5}>
-                  <TextField
-                    id="outlined-basic"
-                    InputLabelProps={{shrink: true}}
-                    label="Link url"
-                    value={branchToCreate?.url_network}
-                    variant="outlined"
-                    onChange={(e) => setBranchToCreate((prev) => ({
-                      ...prev,
-                      url_network: e.target.value,
-                    }))}/>
-                </Grid>
-
+                <GenericCreateFields setBranchToCreate={setBranchToCreate} keyParam="name_network" value={branchToCreate?.name_network}/>
+                <GenericCreateFields setBranchToCreate={setBranchToCreate} keyParam="url_network" value={branchToCreate?.url_network}/>
                 <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
                   <Button onClick={handleCreatePath}>
                     <DoneIcon/>
@@ -261,12 +237,10 @@ export const Modification = () => {
                   <Grid>
 
                     {/*Modify Path Profil*/}
-                    <PathProfilModify pathWithNestedBranchs={pathWithNestedBranchs} setPathWithNestedBranchs={setPathWithNestedBranchs}/>
-                    <br/>
+                    <PathProfilModify pathWithNestedBranchs={pathWithNestedBranchs} setPathWithNestedBranchs={setPathWithNestedBranchs}/><br/>
 
                     {/*Modify Bio*/}
-                    <BioProfilModify pathWithNestedBranchs={pathWithNestedBranchs} setPathWithNestedBranchs={setPathWithNestedBranchs}/>
-                    <br/>
+                    <BioProfilModify pathWithNestedBranchs={pathWithNestedBranchs} setPathWithNestedBranchs={setPathWithNestedBranchs}/><br/>
 
                     {/*Validation button modify */}
                     <Grid display="flex" flexDirection="row" justifyContent="center" sx={{transition: "0.3", width: "80%", margin: "auto", borderRadius: "8px", padding: 2}}>
@@ -330,7 +304,7 @@ export const Modification = () => {
                       </Button>
                     </Grid>
                   </Grid>
-              // LINK END MODIFY
+                  // LINK END MODIFY
                 ) :
                 (
                   // LINK START DISPLAY
@@ -353,13 +327,9 @@ export const Modification = () => {
                 </Grid>
               </Grid>
             </Grid>
-              {/* BUTTON START TO MODIFY NETWORK*/}
+            {/* BUTTON START TO MODIFY NETWORK*/}
           </Grid>
-
-
       }
-
-
     </>
   )
 }
