@@ -17,6 +17,12 @@ updates:
         applies-to: version-updates
         patterns:
           - "@react*"
+        update-types:
+          - "minor"
+          - "patch"
+      vite:
+        applies-to: version-updates
+        patterns:
           - "@vite*"
         update-types:
           - "minor"
